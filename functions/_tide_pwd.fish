@@ -7,9 +7,29 @@ set -l home_icon $tide_pwd_icon_home' '
 set -l pwd_icon $tide_pwd_icon' '
 
 eval "function _tide_pwd
-    if set -l split_pwd (string replace -r '^$HOME' '~' -- \$PWD | string split /)
-        test -w . && set -f split_output \"$pwd_icon\$split_pwd[1]\" \$split_pwd[2..] ||
-            set -f split_output \"$unwritable_icon\$split_pwd[1]\" \$split_pwd[2..]
+    set -l _path (string replace -r '^$HOME' '~' -- \$PWD)
+    if set -q tide_pwd_substitutions
+        for i in (seq 1 2 (count \$tide_pwd_substitutions))
+            set -l _pat \$tide_pwd_substitutions[\$i]
+            set -l _rep \$tide_pwd_substitutions[(math \$i + 1)]
+            if test \"\$_path\" = \"\$_pat\"
+                echo \"$reset_to_color_dirs$color_anchors\$_rep$reset_to_color_dirs\"
+                string length -V -- \"\$_rep\" | read -g _tide_pwd_len
+                return
+            else if string match -q -- \"\$_pat/*\" \"\$_path\"
+                set _path (string replace -- \"\$_pat\" \"\$_rep\" \"\$_path\")
+                set -f _skip_pwd_icon 1
+                break
+            end
+        end
+    end
+    if set -l split_pwd (string split / -- \$_path)
+        if set -q _skip_pwd_icon
+            set -f split_output \$split_pwd
+        else
+            test -w . && set -f split_output \"$pwd_icon\$split_pwd[1]\" \$split_pwd[2..] ||
+                set -f split_output \"$unwritable_icon\$split_pwd[1]\" \$split_pwd[2..]
+        end
         set split_output[-1] \"$color_anchors\$split_output[-1]$reset_to_color_dirs\"
     else
         set -f split_output \"$home_icon$color_anchors~\"

@@ -130,5 +130,43 @@ mkdir -p "$tmpdir/tmp/[hello"
 _pwd $tmpdir/tmp/$longDirWithDot # CHECK: ~/t/[t/b/c/d/e/f/golf/hotel/india/juliett/kilo/lima/mike/november/oscar/papa
 command rm -r "$tmpdir/tmp/[hello"
 
+# ------------------------------------Substitutions------------------------------------
+mkdir -p $tmpdir/Dev/github.com/foo/bar
+mkdir -p $tmpdir/Dev/elsewhere
+mkdir -p $tmpdir/Other/path
+
+# --- Substitutions OFF: regression baseline ---
+set -e tide_pwd_substitutions
+_pwd $tmpdir/Dev/github.com/foo # CHECK: ~/Dev/github.com/foo
+
+# --- Exact match ---
+set -g tide_pwd_substitutions "~/Dev/github.com" GH
+_pwd $tmpdir/Dev/github.com # CHECK: GH
+
+# --- Prefix match ---
+_pwd $tmpdir/Dev/github.com/foo # CHECK: GH/foo
+
+# --- Prefix match, deeper ---
+_pwd $tmpdir/Dev/github.com/foo/bar # CHECK: GH/foo/bar
+
+# --- No match: falls back to default rendering ---
+_pwd $tmpdir/Other/path # CHECK: ~/Other/path
+
+# --- Empty replacement (Starship `~` -> `` parity) ---
+set -g tide_pwd_substitutions "~" ""
+_pwd $tmpdir # CHECK:
+
+# --- Ordering: first match wins ---
+set -g tide_pwd_substitutions \
+    "~/Dev/github.com" GH \
+    "~/Dev"            DEV
+_pwd $tmpdir/Dev/github.com/foo # CHECK: GH/foo
+
+# --- Second entry matches when first doesn't ---
+_pwd $tmpdir/Dev/elsewhere # CHECK: DEV/elsewhere
+
+# --- Cleanup substitutions var ---
+set -e tide_pwd_substitutions
+
 # ------------------------------------Cleanup------------------------------------
 command rm -r $tmpdir
