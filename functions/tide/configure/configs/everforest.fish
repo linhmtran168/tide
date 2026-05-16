@@ -35,18 +35,18 @@ tide_gcloud_color 7fbbb3
 tide_git_bg_color 4a3b2d
 tide_git_bg_color_unstable 564836
 tide_git_bg_color_urgent 553f43
-tide_git_color_branch 83c092
+tide_git_color_branch d3c6aa
 tide_git_color_conflicted e67e80
 tide_git_color_dirty dbbc7f
 tide_git_color_operation e67e80
 tide_git_color_staged e69875
-tide_git_color_stash 83c092
+tide_git_color_stash a7c080
 tide_git_color_untracked dbbc7f
-tide_git_color_upstream 83c092
+tide_git_color_upstream a7c080
 tide_git_status_extra_args --ignore-submodules=all
 tide_git_truncation_length 24
 tide_git_truncation_strategy
-tide_go_bg_color 303f4a
+tide_go_bg_color 26343d
 tide_go_color 83c092
 tide_java_bg_color 303f4a
 tide_java_color d699b6
@@ -63,7 +63,7 @@ tide_left_prompt_separator_same_color 
 tide_left_prompt_suffix 
 tide_nix_shell_bg_color 303f4a
 tide_nix_shell_color 7fbbb3
-tide_node_bg_color 303f4a
+tide_node_bg_color 26343d
 tide_node_color a7c080
 tide_os_bg_color 303f4a
 tide_os_color d3c6aa
@@ -73,7 +73,7 @@ tide_private_mode_bg_color 303f4a
 tide_private_mode_color d3c6aa
 tide_prompt_add_newline_before true
 tide_prompt_color_frame_and_connection 9da9a0
-tide_prompt_color_separator_same_color 56635f
+tide_prompt_color_separator_same_color 5f6b66
 tide_prompt_min_cols 34
 tide_prompt_pad_items true
 tide_prompt_transient_enabled false
@@ -85,7 +85,7 @@ tide_pwd_color_dirs d3c6aa
 tide_pwd_color_truncated_dirs 9da9a0
 tide_pwd_markers .bzr .citc .git .hg .node-version .python-version .ruby-version .shorten_folder_marker .svn .terraform bun.lock Cargo.toml composer.json CVS go.mod package.json build.zig
 tide_pwd_substitutions "~/Desktop" " Desktop" "~/Documents" " Documents" "~/Downloads" " Downloads" "~" ""
-tide_python_bg_color 303f4a
+tide_python_bg_color 26343d
 tide_python_color dbbc7f
 tide_right_prompt_frame_enabled false
 tide_right_prompt_items newline status cmd_duration jobs time
@@ -93,9 +93,9 @@ tide_right_prompt_prefix ''
 tide_right_prompt_separator_diff_color ''
 tide_right_prompt_separator_same_color ''
 tide_right_prompt_suffix ''
-tide_ruby_bg_color 303f4a
+tide_ruby_bg_color 26343d
 tide_ruby_color e67e80
-tide_rustc_bg_color 303f4a
+tide_rustc_bg_color 26343d
 tide_rustc_color e69875
 tide_shlvl_bg_color 303f4a
 tide_shlvl_color dbbc7f
@@ -104,7 +104,7 @@ tide_status_bg_color normal
 tide_status_bg_color_failure normal
 tide_status_color a7c080
 tide_status_color_failure e67e80
-tide_terraform_bg_color 303f4a
+tide_terraform_bg_color 26343d
 tide_terraform_color d699b6
 tide_time_bg_color normal
 tide_time_color 9da9a0
