@@ -1,5 +1,18 @@
 # Changelog
 
+## Fork changes (`linhmtran168/tide`)
+
+Unreleased changes maintained on top of upstream `v6.2.0`.
+
+### Features
+
+- New `everforest` theme preset, palette and shape ported from the user's Starship config (`functions/tide/configure/configs/everforest.fish`). Exposed via `tide configure` (option 4) and a new `tide load-theme <name>` subcommand.
+- New `_tide_item_brand` static-text ornament item. Renders only when `tide_brand_icon` is non-empty, so other themes are unaffected.
+- New `tide_pwd_substitutions` universal — paired `pattern replacement` list applied as the first prefix match against the post-`$HOME→~` path. Lets you map `~/Dev/github.com` → ` github`, etc.
+- New `tide_git_status_extra_args` universal — appended to the `git status --porcelain` call in `_tide_item_git`. Everforest seeds `--ignore-submodules=all` for monorepo speed.
+
+Each new knob defaults to unset and is gated, so stock Lean / Classic / Rainbow render byte-identically to upstream.
+
 ## [v6.2.0][] (Aug 02 2025)
 
 ### Features

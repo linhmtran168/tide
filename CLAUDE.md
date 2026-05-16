@@ -94,6 +94,28 @@ Read this before editing prompt internals — the hot path is unusual.
 
 **Subcommands.** `tide <sub>` dispatches to `_tide_sub_<sub>` (see `functions/tide.fish`). Existing subcommands: `configure`, `reload`, `bug-report`. After mutating `tide_*_prompt_items` universal vars, users must run `tide reload` for the new items to be filtered + cached.
 
+## Themes
+
+Themes are data files at `functions/tide/configure/configs/<name>.fish` — bare `tide_*` assignments. Available presets: `lean`, `classic`, `rainbow`, `everforest` (fork-only).
+
+Two ways to activate a theme:
+
+- `tide configure` — interactive wizard. Step 1 (Prompt Style) lists the four presets. Lean/Classic/Rainbow route through the standard `prompt_colors` → `show_time` → … flow. Everforest skips the 16-color step (it has no `_16color` variant) and jumps to `show_time` directly.
+- `tide load-theme <name>` — non-interactive. Sources `<name>.fish` + `icons.fish` as `fake_tide_*` vars, then promotes them to `tide_*` universals (mirror of `_tide_finish`) and calls `tide reload`. Unknown names exit 1 with the available list on stderr.
+
+The Everforest preset depends on three opt-in knobs added in this fork. Each defaults to unset, so other themes / existing users see zero behavior change:
+
+- `tide_pwd_substitutions` — paired list `pattern1 replacement1 pattern2 replacement2 …`. `_tide_pwd` applies the **first prefix match** (longest patterns first is your responsibility — ordering is the contract) against the post-`$HOME→~` path. Exact match emits the replacement as a single anchored segment; prefix match replaces the prefix and skips the leading pwd icon. Read in `_tide_pwd` (universal vars only — the wizard's `fake_*` preview does **not** see substitutions live; they activate after `_tide_finish` or `tide load-theme`).
+- `tide_git_status_extra_args` — appended verbatim to the `git status --porcelain` call in `_tide_item_git`. Everforest seeds `--ignore-submodules=all` for monorepo speed. Async render already keeps the visible prompt unblocked; this cuts what the backgrounded `fish -c` actually does on `cd`.
+- `tide_brand_icon` — when non-empty, `_tide_item_brand` emits it via `_tide_print_item brand $tide_brand_icon`. Static-text ornament, no command execution. Not in `_tide_remove_unusable_items` because it doesn't depend on a CLI.
+
+When adding a new preset:
+
+1. New `functions/tide/configure/configs/<name>.fish` — bare `tide_*` assignments.
+2. Add a `_tide_option N <Label>` + `case <Label>` branch in `functions/tide/configure/choices/all/style.fish`, routing via `_next_choice` to whichever downstream step makes sense (most presets → `all/prompt_colors`; a fixed-palette preset → `all/show_time`).
+3. Append the name to the static list in `completions/tide.fish` (`__fish_seen_subcommand_from load-theme`).
+4. Update the `load-theme` help line in `_tide_help` (`functions/tide.fish`).
+
 ## Code conventions (from CONTRIBUTING.md, enforced by review)
 
 - `test` over `[...]`; `&&` / `||` over `and` / `or`. For non-trivial branching use `if`/`else if`/`else`.
