@@ -2,7 +2,7 @@ tide_aws_bg_color 303f4a
 tide_aws_color e69875
 tide_brand_bg_color 273f46
 tide_brand_color 7fbbb3
-tide_brand_icon 
+tide_brand_icon 
 tide_bun_bg_color 303f4a
 tide_bun_color dbbc7f
 tide_character_color a7c080
@@ -32,9 +32,9 @@ tide_elixir_bg_color 303f4a
 tide_elixir_color d699b6
 tide_gcloud_bg_color 303f4a
 tide_gcloud_color 7fbbb3
-tide_git_bg_color 263f43
-tide_git_bg_color_unstable 4a3b2d
-tide_git_bg_color_urgent 4a3b2d
+tide_git_bg_color 4a3b2d
+tide_git_bg_color_unstable 564836
+tide_git_bg_color_urgent 553f43
 tide_git_color_branch 83c092
 tide_git_color_conflicted e67e80
 tide_git_color_dirty dbbc7f
@@ -56,10 +56,10 @@ tide_jobs_number_threshold 1000
 tide_kubectl_bg_color 303f4a
 tide_kubectl_color 7fbbb3
 tide_left_prompt_frame_enabled false
-tide_left_prompt_items brand pwd git newline character
-tide_left_prompt_prefix ''
-tide_left_prompt_separator_diff_color 
-tide_left_prompt_separator_same_color 
+tide_left_prompt_items os pwd git node python rustc ruby go terraform newline character
+tide_left_prompt_prefix '░▒▓'
+tide_left_prompt_separator_diff_color 
+tide_left_prompt_separator_same_color 
 tide_left_prompt_suffix 
 tide_nix_shell_bg_color 303f4a
 tide_nix_shell_color 7fbbb3
@@ -73,10 +73,10 @@ tide_private_mode_bg_color 303f4a
 tide_private_mode_color d3c6aa
 tide_prompt_add_newline_before true
 tide_prompt_color_frame_and_connection 9da9a0
-tide_prompt_color_separator_same_color 9da9a0
+tide_prompt_color_separator_same_color 56635f
 tide_prompt_min_cols 34
 tide_prompt_pad_items true
-tide_prompt_transient_enabled true
+tide_prompt_transient_enabled false
 tide_pulumi_bg_color 303f4a
 tide_pulumi_color dbbc7f
 tide_pwd_bg_color 3a463b
@@ -84,14 +84,14 @@ tide_pwd_color_anchors d3c6aa
 tide_pwd_color_dirs d3c6aa
 tide_pwd_color_truncated_dirs 9da9a0
 tide_pwd_markers .bzr .citc .git .hg .node-version .python-version .ruby-version .shorten_folder_marker .svn .terraform bun.lock Cargo.toml composer.json CVS go.mod package.json build.zig
-tide_pwd_substitutions "~/Dev/github.com" " github" "~/Dev" "󰲋 Dev" "~/Desktop" " Desktop" "~/Documents" " Documents" "~/Downloads" " Downloads" "~" ""
+tide_pwd_substitutions "~/Desktop" " Desktop" "~/Documents" " Documents" "~/Downloads" " Downloads" "~" ""
 tide_python_bg_color 303f4a
 tide_python_color dbbc7f
 tide_right_prompt_frame_enabled false
-tide_right_prompt_items status cmd_duration jobs time
-tide_right_prompt_prefix 
-tide_right_prompt_separator_diff_color 
-tide_right_prompt_separator_same_color 
+tide_right_prompt_items newline status cmd_duration jobs time
+tide_right_prompt_prefix ''
+tide_right_prompt_separator_diff_color ''
+tide_right_prompt_separator_same_color ''
 tide_right_prompt_suffix ''
 tide_ruby_bg_color 303f4a
 tide_ruby_color e67e80

@@ -1,5 +1,7 @@
 # RUN: %fish %s
 _tide_parent_dirs
+set -gx tide_git_icon
+set -gx tide_git_status_extra_args
 
 function _git
     git $argv >/dev/null 2>&1

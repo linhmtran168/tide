@@ -7,6 +7,8 @@ function _tide_sub_load-theme -a name
         return 1
     end
 
+    _tide_detect_os | read -g --line os_branding_icon os_branding_color os_branding_bg_color
+
     # Mirror _load_config (style.fish:33-36): source icons + theme as fake_ vars
     string replace -r '^' 'set -g fake_' <$configs_dir/../icons.fish | source
     string replace -r '^' 'set -g fake_' <$configs_dir/$name.fish | source

@@ -36,7 +36,7 @@ function style
         case Everforest
             _load_config everforest
             set -g _tide_configure_style everforest
-            _next_choice all/show_time
+            _next_choice all/finish
     end
 end
 

@@ -13,6 +13,7 @@ set -lx HOME $tmpdir
 set -lx COLUMNS 80
 set -lx dist_btwn_sides 80
 set -l longDir alfa/bravo/charlie/delta/echo/foxtrot/golf/hotel/india/juliett/kilo/lima/mike/november/oscar/papa
+set -gx tide_pwd_substitutions __tide_test_no_match __tide_test_no_match
 
 # ------------------------------------ICONS-----------------------------------
 set -lx tide_pwd_icon_unwritable unwritable_icon
@@ -104,6 +105,11 @@ mkdir -p $tmpdir/tmp/.git
 _pwd $tmpdir/tmp/$longDir # CHECK: ~/tmp/a/b/c/d/e/f/golf/hotel/india/juliett/kilo/lima/mike/november/oscar/papa
 command rm -r $tmpdir/tmp/.git
 
+set -l stderr_file (mktemp)
+_pwd $tmpdir/tmp/$longDir >/dev/null 2>$stderr_file
+test -s $stderr_file; and echo stderr-present; or echo stderr-empty # CHECK: stderr-empty
+command rm $stderr_file
+
 # ------------------------------------Weird Directories------------------------------------
 mkdir -p "$tmpdir/tmp/has spaces/foo"
 _pwd "$tmpdir/tmp/has spaces/foo" # CHECK: ~/tmp/has spaces/foo
@@ -135,8 +141,8 @@ mkdir -p $tmpdir/Dev/github.com/foo/bar
 mkdir -p $tmpdir/Dev/elsewhere
 mkdir -p $tmpdir/Other/path
 
-# --- Substitutions OFF: regression baseline ---
-set -e tide_pwd_substitutions
+# --- No matching substitutions: regression baseline ---
+set -g tide_pwd_substitutions __tide_test_no_match __tide_test_no_match
 _pwd $tmpdir/Dev/github.com/foo # CHECK: ~/Dev/github.com/foo
 
 # --- Exact match ---
@@ -165,8 +171,15 @@ _pwd $tmpdir/Dev/github.com/foo # CHECK: GH/foo
 # --- Second entry matches when first doesn't ---
 _pwd $tmpdir/Dev/elsewhere # CHECK: DEV/elsewhere
 
+# --- Home-prefix substitution with deep truncation does not emit stderr ---
+set -g tide_pwd_substitutions "~" HOME
+set -l substitution_stderr_file (mktemp)
+_pwd $tmpdir/tmp/$longDir >/dev/null 2>$substitution_stderr_file
+test -s $substitution_stderr_file; and echo stderr-present; or echo stderr-empty # CHECK: stderr-empty
+command rm $substitution_stderr_file
+
 # --- Cleanup substitutions var ---
-set -e tide_pwd_substitutions
+set -g tide_pwd_substitutions __tide_test_no_match __tide_test_no_match
 
 # ------------------------------------Cleanup------------------------------------
 command rm -r $tmpdir

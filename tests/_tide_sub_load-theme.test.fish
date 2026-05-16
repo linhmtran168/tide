@@ -17,17 +17,22 @@ set -l fns_dir (path resolve (path dirname (status -f))/../functions)
 
 env HOME=$tmp_home fish -c "
     set fish_function_path '$fns_dir' \$fish_function_path
+    function uname
+        echo Darwin
+    end
     function tide
     end
     _tide_sub_load-theme everforest >/dev/null 2>&1
     test \"\$tide_git_status_extra_args\" = '--ignore-submodules=all'; and echo git-args-set
     test -n \"\$tide_brand_icon\"; and echo brand-icon-set
-    contains brand \$tide_left_prompt_items; and echo brand-in-left-items
-    contains -- '~/Dev/github.com' \$tide_pwd_substitutions; and echo subs-pair-set
+    test \"\$tide_os_icon\" = ''; and echo os-icon-set
+    contains os \$tide_left_prompt_items; and echo os-in-left-items
+    contains -- '~' \$tide_pwd_substitutions; and echo subs-pair-set
 " 2>/dev/null
 # CHECK: git-args-set
 # CHECK: brand-icon-set
-# CHECK: brand-in-left-items
+# CHECK: os-icon-set
+# CHECK: os-in-left-items
 # CHECK: subs-pair-set
 
 command rm -r $tmp_home
