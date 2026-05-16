@@ -165,7 +165,7 @@ _pwd $tmpdir # CHECK:
 # --- Ordering: first match wins ---
 set -g tide_pwd_substitutions \
     "~/Dev/github.com" GH \
-    "~/Dev"            DEV
+    "~/Dev" DEV
 _pwd $tmpdir/Dev/github.com/foo # CHECK: GH/foo
 
 # --- Second entry matches when first doesn't ---

@@ -27,7 +27,7 @@ env HOME=$tmp_home fish -c "
     test -n \"\$tide_brand_icon\"; and echo brand-icon-set
     test \"\$tide_os_icon\" = ''; and echo os-icon-set
     contains os \$tide_left_prompt_items; and echo os-in-left-items
-    contains -- '~' \$tide_pwd_substitutions; and echo subs-pair-set
+    contains -- '~/Desktop' \$tide_pwd_substitutions; and echo subs-pair-set
 " 2>/dev/null
 # CHECK: git-args-set
 # CHECK: brand-icon-set

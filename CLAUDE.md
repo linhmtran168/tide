@@ -62,11 +62,11 @@ function _bun
 end
 
 mock bun --version "echo 1.1.39"
-set -lx tide_bun_icon 
+set -lx tide_bun_icon 
 
 _bun # CHECK:                # expects empty output (no marker file present)
 touch bun.lock
-_bun # CHECK:  1.1.39       # expects icon + version
+_bun # CHECK:  1.1.39       # expects icon + version
 ```
 
 Notes that bite:
@@ -138,4 +138,4 @@ Bump the version in `functions/tide.fish`, set the date in `CHANGELOG.md`, commi
 
 ## Non-ASCII safety
 
-Item files and tests embed Nerd Font glyphs (e.g. `tide_bun_icon `). When editing those lines, verify the bytes survived (`cat`, `hexdump -C | head`) — corrupted glyphs only surface in a terminal and won't fail lint.
+Item files and tests embed Nerd Font glyphs (e.g. `tide_bun_icon `). When editing those lines, verify the bytes survived (`cat`, `hexdump -C | head`) — corrupted glyphs only surface in a terminal and won't fail lint.
