@@ -22,7 +22,8 @@ function _tide_help
         '  -h or --help     print this help message' \
         '' \
         'Subcommands:' \
-        '  configure   run interactive configuration wizard' \
-        '  reload      reload tide configuration' \
-        '  bug-report  print info for use in bug reports'
+        '  configure         run interactive configuration wizard' \
+        '  reload            reload tide configuration' \
+        '  load-theme NAME   apply a preset (lean classic rainbow everforest)' \
+        '  bug-report        print info for use in bug reports'
 end
