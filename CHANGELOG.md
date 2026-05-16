@@ -1,17 +1,16 @@
 # Changelog
 
-## Fork changes (`linhmtran168/tide`)
+## [v7.0.0][] (May 16 2026)
 
-Unreleased changes maintained on top of upstream `v6.2.0`.
+First release of the `linhmtran168/tide` fork. Tracks upstream `v6.2.0` and adds opt-in Everforest theming, path-prefix substitution, and a non-interactive theme loader. All new knobs default to unset, so stock Lean / Classic / Rainbow render byte-identically to upstream.
 
 ### Features
 
-- New `everforest` theme preset, palette and shape ported from the user's Starship config (`functions/tide/configure/configs/everforest.fish`). Exposed via `tide configure` (option 4) and a new `tide load-theme <name>` subcommand.
+- New `everforest` theme preset — palette tuned for visibility on dark terminals (every text pair lands at WCAG AA or better). Exposed as option 4 in `tide configure`, in the install/update wizard, and via the new `tide load-theme` subcommand. (`functions/tide/configure/configs/everforest.fish`)
+- New `tide load-theme <name>` subcommand — apply a preset non-interactively. Mirrors what `_tide_finish` does after the wizard: sources `<name>.fish` + `icons.fish` as `fake_tide_*` vars, promotes them to universals, and runs `tide reload`. Unknown names exit 1 with the available list.
 - New `_tide_item_brand` static-text ornament item. Renders only when `tide_brand_icon` is non-empty, so other themes are unaffected.
-- New `tide_pwd_substitutions` universal — paired `pattern replacement` list applied as the first prefix match against the post-`$HOME→~` path. Lets you map `~/Dev/github.com` → ` github`, etc.
+- New `tide_pwd_substitutions` universal — paired `pattern replacement` list applied as the first prefix match against the post-`$HOME→~` path. Lets you collapse long workspace paths to icon-prefixed labels (e.g. `~/Dev/github.com` becomes a single Nerd-Font glyph + name segment). Exact match emits the replacement as a single anchored segment; prefix match replaces the prefix and skips the leading pwd icon.
 - New `tide_git_status_extra_args` universal — appended to the `git status --porcelain` call in `_tide_item_git`. Everforest seeds `--ignore-submodules=all` for monorepo speed.
-
-Each new knob defaults to unset and is gated, so stock Lean / Classic / Rainbow render byte-identically to upstream.
 
 ## [v6.2.0][] (Aug 02 2025)
 
@@ -653,3 +652,5 @@ Each new knob defaults to unset and is gated, so stock Lean / Classic / Rainbow 
 [v6.0.1]: https://github.com/IlanCosman/tide/tree/v6.0.1
 [v6.1.0]: https://github.com/IlanCosman/tide/tree/v6.1.0
 [v6.1.1]: https://github.com/IlanCosman/tide/tree/v6.1.1
+[v6.2.0]: https://github.com/IlanCosman/tide/tree/v6.2.0
+[v7.0.0]: https://github.com/linhmtran168/tide/tree/v7.0.0

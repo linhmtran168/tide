@@ -12,6 +12,9 @@
 
 - **Flexible -** Pure-Fish construction means you can easily control existing content or create your own that will integrate seamlessly.
 
+> [!WARNING]
+> **This fork (`linhmtran168/tide`) is AI-generated.** Claude Code authored the Everforest theme, the new `tide_pwd_substitutions` / `tide_git_status_extra_args` / `tide_brand_icon` universals, and the `tide load-theme` subcommand. Diffs are hand-reviewed but **use at your own risk**. Upstream lives at [IlanCosman/tide](https://github.com/IlanCosman/tide).
+
 ## Installation
 
 ### System Requirements
@@ -22,7 +25,7 @@
 Install with [Fisher][]:
 
 ```console
-fisher install linhmtran168/tide@v6
+fisher install linhmtran168/tide@v7
 ```
 
 <details>
@@ -32,7 +35,7 @@ This script may not work for all use cases.
 
 ```fish
 set -l _tide_tmp_dir (command mktemp -d)
-curl https://codeload.github.com/linhmtran168/tide/tar.gz/v6 | tar -xzC $_tide_tmp_dir
+curl https://codeload.github.com/linhmtran168/tide/tar.gz/v7 | tar -xzC $_tide_tmp_dir
 command cp -R $_tide_tmp_dir/*/{completions,conf.d,functions} $__fish_config_dir
 fish_path=(status fish-path) exec $fish_path -C "emit _tide_init_install"
 ```
@@ -80,6 +83,41 @@ The current working directory is the most important part of any shell prompt. Ti
 When the full directory doesn't fit, the leftmost segment is truncated to its shortest unique prefix. In the example above, `Documents` becomes `Doc` instead of `D` because that could be confused with `Downloads`. Important segments are bold and never truncated. These include the last segment, root of a Git repository etc.
 
 <sup>_Tip_: If you copy-paste a truncated path and hit <kbd>tab</kbd>, it will complete to the original.</sup>
+
+## Fork-specific extras
+
+Everything below is opt-in. Each new knob defaults to unset, so Lean / Classic / Rainbow render byte-identically to upstream `v6.2.0`.
+
+### Everforest theme
+
+A fourth preset alongside Lean, Classic, and Rainbow. Palette tuned so every text-bearing fg/bg pair lands at WCAG AA or better on a dark terminal. Pick it from `tide configure` (option 4), or apply non-interactively:
+
+```fish
+tide load-theme everforest
+```
+
+`tide load-theme <name>` accepts `lean`, `classic`, `rainbow`, or `everforest`. It mirrors what the wizard's finish step does — sources the theme, promotes the variables to universals, and runs `tide reload`.
+
+### Path-prefix substitutions
+
+Set `tide_pwd_substitutions` to a paired `pattern replacement` list. The first prefix match wins (longest-first ordering is your responsibility), applied against the path **after** `$HOME` is replaced with `~`:
+
+```fish
+set -U tide_pwd_substitutions \
+    "~/Dev/github.com/owner" " owner" \
+    "~/Dev/github.com" " github" \
+    "~/Documents" " Documents"
+```
+
+Exact match emits the replacement as a single anchored segment. Prefix match replaces the prefix and suppresses the leading pwd icon so the substitution itself acts as the icon.
+
+### Quieter `git` in monorepos
+
+Set `tide_git_status_extra_args` to anything you want appended to the `git status --porcelain` call inside `_tide_item_git`. The Everforest preset seeds it with `--ignore-submodules=all`, which materially cuts `cd` cost in large monorepos. Async render keeps the visible prompt unblocked either way.
+
+### Static-text brand ornament
+
+If `tide_brand_icon` is non-empty, the `brand` item emits it via `_tide_print_item`. Useful for a fixed glyph at the prompt head (Apple logo, company mark, etc.). Add `brand` to `tide_left_prompt_items` to enable it; leave the icon unset to keep the item invisible.
 
 ## Documentation
 
