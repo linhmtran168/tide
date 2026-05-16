@@ -3,3 +3,9 @@ littlecheck.py
 # Claude Code local settings
 .claude/settings.local.json
 .claude.local.md
+
+# Codex local settings
+.codex/settings.local.json
+
+# VSCode settings
+.vscode/
