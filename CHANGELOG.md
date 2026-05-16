@@ -1,5 +1,21 @@
 # Changelog
 
+## [v7.0.1][] (May 16 2026)
+
+Maintenance release. No user-facing behavior changes — only CI fixes and CI / release action bumps.
+
+### Bug fixes (CI / dev infra)
+
+- Restore stripped Nerd Font bun glyph in `CLAUDE.md` examples (lines 65, 69, 141). The bytes were lost during a previous edit, leaving orphaned trailing whitespace that tripped `editorconfig-checker` in mega-linter.
+- Apply `fish_indent` to `tests/_tide_item_pwd.test.fish` — the column-aligned `tide_pwd_substitutions` pair was failing `fish_indent --check`.
+- Sync `tests/_tide_sub_load-theme.test.fish` with `everforest.fish` — assert `~/Desktop` after the bare `~` substitution was intentionally removed.
+
+### Dependencies
+
+- Bump `oxsecurity/megalinter` from 8 to 9.
+- Bump `softprops/action-gh-release` from 2 to 3.
+- Bump `dessant/lock-threads` from 5 to 6.
+
 ## [v7.0.0][] (May 16 2026)
 
 First release of the `linhmtran168/tide` fork. Tracks upstream `v6.2.0` and adds opt-in Everforest theming, path-prefix substitution, and a non-interactive theme loader. All new knobs default to unset, so stock Lean / Classic / Rainbow render byte-identically to upstream.
@@ -654,3 +670,4 @@ First release of the `linhmtran168/tide` fork. Tracks upstream `v6.2.0` and adds
 [v6.1.1]: https://github.com/IlanCosman/tide/tree/v6.1.1
 [v6.2.0]: https://github.com/IlanCosman/tide/tree/v6.2.0
 [v7.0.0]: https://github.com/linhmtran168/tide/tree/v7.0.0
+[v7.0.1]: https://github.com/linhmtran168/tide/tree/v7.0.1
