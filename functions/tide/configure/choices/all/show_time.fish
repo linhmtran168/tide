@@ -1,4 +1,8 @@
 function show_time
+    while contains -i time $fake_tide_right_prompt_items | read -l time_index
+        set -e fake_tide_right_prompt_items[$time_index]
+    end
+
     _tide_title 'Show current time?'
 
     _tide_option 1 No
@@ -18,7 +22,9 @@ function show_time
     switch $_tide_selected_option
         case No
             set -g fake_tide_time_format ''
-            set -e fake_tide_right_prompt_items[-1]
+            while contains -i time $fake_tide_right_prompt_items | read -l time_index
+                set -e fake_tide_right_prompt_items[$time_index]
+            end
         case '24-hour format'
             set -g fake_tide_time_format %T
         case '12-hour format'

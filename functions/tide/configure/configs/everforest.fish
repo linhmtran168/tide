@@ -84,7 +84,7 @@ tide_pwd_color_anchors d3c6aa
 tide_pwd_color_dirs d3c6aa
 tide_pwd_color_truncated_dirs 9da9a0
 tide_pwd_markers .bzr .citc .git .hg .node-version .python-version .ruby-version .shorten_folder_marker .svn .terraform bun.lock Cargo.toml composer.json CVS go.mod package.json build.zig
-tide_pwd_substitutions "~/Desktop" " Desktop" "~/Documents" " Documents" "~/Downloads" " Downloads" "~" ""
+tide_pwd_substitutions "~/Desktop" " Desktop" "~/Documents" " Documents" "~/Downloads" " Downloads"
 tide_python_bg_color 26343d
 tide_python_color dbbc7f
 tide_right_prompt_frame_enabled false
